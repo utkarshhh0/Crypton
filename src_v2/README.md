@@ -1,6 +1,6 @@
 # 🔐 Crypton v2 — Multi-Cipher Crypting.
 
-**Crypton v2** is a levelled-up terminal-based cryptography tool that supports **three classic encryption techniques**: Caesar, XOR, and Vigenère. Built in Python, this version focuses on clarity, modularity, and giving users the power to explore symmetric encryption in its rawest form.
+**Crypton v2** is a levelled-up terminal-based cryptography tool that supports **three classic encryption techniques**: Caesar, XOR, and Vigenère. Upgraded in Python, this version focuses on clarity, modularity, and giving users the power to explore symmetric encryption in its rawest form.
 
 ---
 
