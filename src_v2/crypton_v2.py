@@ -16,7 +16,7 @@ def caesar_encrypt(text, key):
 def caesar_decrypt(text, key):
     return caesar_encrypt(text, -key)
 
-# XOR Cipher (same fn for enc/dec) 
+# XOR Cipher (same fn for enc/dec)
 def xor_encrypt_decrypt(text, key):
     return ''.join(chr(ord(c) ^ key) for c in text)
 
@@ -25,7 +25,7 @@ def vigenere_shift(char, key_char, decrypt=False):
     if not char.isalpha():
         return char
     base = ord('A') if char.isupper() else ord('a')
-    k    = ord(key_char.lower()) - ord('a')
+    k = ord(key_char.lower()) - ord('a')
     if decrypt:
         k = -k
     return chr((ord(char) - base + k) % 26 + base)
@@ -40,42 +40,47 @@ def vigenere(text, keyword, decrypt=False):
             result.append(c)
     return ''.join(result)
 
-# CLI Menu
-def main():
-    banner = r'''
-  /$$$$$$                                  /$$                        
- /$$__  $$                                | $$                        
-| $$  \__/  /$$$$$$  /$$   /$$  /$$$$$$  /$$$$$$    /$$$$$$  /$$$$$$$ 
+# Main Menu
+def show_banner():
+    print(r'''
+  /$$$$$$                                  /$$
+ /$$__  $$                                | $$
+| $$  \__/  /$$$$$$  /$$   /$$  /$$$$$$  /$$$$$$    /$$$$$$  /$$$$$$$
 | $$       /$$__  $$| $$  | $$ /$$__  $$|_  $$_/   /$$__  $$| $$__  $$
 | $$      | $$  \__/| $$  | $$| $$  \ $$  | $$    | $$  \ $$| $$  \ $$
 | $$    $$| $$      | $$  | $$| $$  | $$  | $$ /$$| $$  | $$| $$  | $$
 |  $$$$$$/| $$      |  $$$$$$$| $$$$$$$/  |  $$$$/|  $$$$$$/| $$  | $$
  \______/ |__/       \____  $$| $$____/    \___/   \______/ |__/  |__/
-                     /$$  | $$| $$                                    
-                    |  $$$$$$/| $$                                    
-                     \______/ |__/                                    
+                     /$$  | $$| $$
+                    |  $$$$$$/| $$
+                     \______/ |__/
 
-                🔐 Welcome to Crypton v2 🔐
+            🔐 Welcome to Crypton v2 🔐
 ==================================================
     Caesar · XOR · Vigenère Encryption Tool
-=================================================='''
-    
+==================================================
+''')
+
+def show_menu():
+    print("1) Caesar Encrypt")
+    print("2) Caesar Decrypt")
+    print("3) XOR Encrypt/Decrypt")
+    print("4) Vigenère Encrypt")
+    print("5) Vigenère Decrypt")
+    print("0) Exit")
+
+def main():
+    show_banner()
     while True:
-        print(banner)
-        print("1) Caesar Encrypt")
-        print("2) Caesar Decrypt")
-        print("3) XOR Encrypt/Decrypt")
-        print("4) Vigenère Encrypt")
-        print("5) Vigenère Decrypt")
-        print("0) Exit")
+        show_menu()
         choice = input("Choice: ").strip()
 
         if choice == '0':
+            print("Exiting Crypton... Stay safe out there.")
             break
 
         text = input("Enter text: ")
 
-        # Caesar
         if choice in {'1', '2'}:
             key = int(input("Enter shift (int): "))
             if choice == '1':
@@ -83,25 +88,27 @@ def main():
             else:
                 print("Decrypted:", caesar_decrypt(text, key))
 
-        # XOR
         elif choice == '3':
-            key = int(input("Enter XOR key (int 0‑255): "))
+            key = int(input("Enter XOR key (int 0-255): "))
             print("Result:", xor_encrypt_decrypt(text, key))
 
-        # Vigenère
         elif choice in {'4', '5'}:
             keyword = input("Enter keyword (letters only): ").strip()
             if not keyword.isalpha():
                 print("Keyword must contain only letters.")
                 continue
             decrypt = (choice == '5')
-            result  = vigenere(text, keyword, decrypt)
+            result = vigenere(text, keyword, decrypt)
             print("Result:", result)
 
         else:
             print("Invalid choice.")
 
-        input("\nPress Enter to continue…")
+        confirm = input("\nDo you want to exit? (y/n): ").strip().lower()
+        if confirm == 'y':
+            print("Exiting Crypton... Keep encrypting.")
+            break
+        print("\n")
 
 if __name__ == "__main__":
     main()
